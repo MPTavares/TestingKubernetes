@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: portal-rs
+spec:
+  template:
+    metadata:
+      name: portal-pod
+      labels:
+        app: portal-pod
+    spec:
+      containers:
+        - name: portal-container
+          image: aluracursos/portal-noticias:1
+          ports: 
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: portal-cf
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portal-pod

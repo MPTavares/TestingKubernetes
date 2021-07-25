@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sistema-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sistema-pod
+  template:
+    metadata:
+      name: sistema-pod
+      labels:
+        app: sistema-pod
+    spec:
+      containers:
+        - name:  sistema-pod-container
+          image: aluracursos/sistema-noticias:1
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: sistema-cf
